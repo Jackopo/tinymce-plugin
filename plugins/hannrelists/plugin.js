@@ -1,6 +1,6 @@
 tinymce.PluginManager.add('hannrelists', function(editor, url) {
 
-  function bindSelectorChanged() {
+  function bindSelectorSetContent() {
     var selection = editor.selection;
     selection.setContent("Hello World!");
 	}
@@ -10,7 +10,7 @@ tinymce.PluginManager.add('hannrelists', function(editor, url) {
 		icon: true,
 		onclick: function() {
 
-      bindSelectorChanged();
+      bindSelectorSetContent();
 
 		}
 	});
