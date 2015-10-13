@@ -1,0 +1,49 @@
+
+.more-links,
+.download-link-list,
+.posts-links,
+.comments-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.more-links li,
+.download-link-list li,
+.posts-links li,
+.comments-links li {
+    list-style: none;
+    padding-bottom: 2px;
+    position: relative;
+}
+
+.more-links li .title,
+.download-link-list li .title,
+.posts-links li .title,
+.comments-links li .title {
+  color: rgb(126, 117, 104);
+}
+
+.more-links li .link,
+.download-link-list li .link,
+.posts-links li .link,
+.comments-links li .link {
+  color: rgb(62,62,62);
+  cursor: pointer;
+  left: 14px;
+  list-style: none;
+  position: relative;
+}
+
+.more-links li .link:before,
+.download-link-list li .link:before,
+.posts-links li .link:before,
+.comments-links li .link:before {
+  content: '\e61c';
+  font-family: 'icomoon';
+  font-size: 16px;
+  left: -14px;
+  margin-right: 8px;
+  position: absolute;
+  vertical-align: bottom;
+}

@@ -35,13 +35,13 @@ tinymce.PluginManager.add('hannrelists', function(editor, url) {
             list = dom.getParent(selection.getNode(), 'ul');
 
             if (list) {
-              dom.addClass(list, "myclass");
+              dom.addClass(list, "download-link-list");
             }
 
             var link = createLinkTag(e.data.url, e.data.link);
             editor.insertContent(link);
 
-            link.removeAttribute('data-mce-href');
+            // link.removeAttribute('data-mce-href');
           }
       });
 		}
