@@ -36,9 +36,7 @@ tinymce.PluginManager.add('advlist', function(editor) {
 	ulMenuItems = buildMenuItems('UL', editor.getParam("advlist_bullet_styles", "default,circle,disc,square"));
 
 	function applyListFormat(listName, styleValue) {
-		debugger;
 		editor.undoManager.transact(function() {
-			debugger;
 
 			var list, dom = editor.dom, sel = editor.selection;
 
@@ -91,11 +89,9 @@ tinymce.PluginManager.add('advlist', function(editor) {
 		menu: ulMenuItems,
 		onshow: updateSelection,
 		onselect: function(e) {
-			debugger;
 			applyListFormat('UL', e.control.settings.data);
 		},
 		onclick: function() {
-			debugger;
 			applyListFormat('UL', false);
 		}
 	});
