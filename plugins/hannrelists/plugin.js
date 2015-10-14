@@ -1,11 +1,5 @@
 tinymce.PluginManager.add('hannrelists', function(editor, url) {
 
-  function createLinkTag(url, text) {
-    return "<a href='" + url + "' class='link'>" + text + "</a>";
-  }
-
-
-
   editor.addButton('hannrelists', {
     text: 'HR lists',
     icon: true,
@@ -15,7 +9,7 @@ tinymce.PluginManager.add('hannrelists', function(editor, url) {
       editor.windowManager.open({
           title: 'Hannre Download List',
           body: [
-              {type: 'textbox', name: 'link', label: 'Name'},
+              {type: 'textbox', name: 'link', label: 'Link Name'},
               {type: 'textbox', name: 'url', label: 'URL'}
           ],
           onsubmit: function(e) {
@@ -30,18 +24,22 @@ tinymce.PluginManager.add('hannrelists', function(editor, url) {
             // Switch/add list type if needed
             if (!list) {
               editor.execCommand('InsertUnorderedList');
+              list = dom.getParent(selection.getNode(), 'ul');
             }
-
-            list = dom.getParent(selection.getNode(), 'ul');
 
             if (list) {
               dom.addClass(list, "download-link-list");
+              item = dom.getParent(selection.getNode(), 'li');
+              if (item) {
+                dom.addClass(item, "item");
+                editor.execCommand('mceInsertContent', false, editor.dom.createHTML('a', {
+                  href: e.data.url,
+                  class: "link"
+                },
+                  e.data.link
+                ));
+              }
             }
-
-            var link = createLinkTag(e.data.url, e.data.link);
-            editor.insertContent(link);
-
-            // link.removeAttribute('data-mce-href');
           }
       });
 		}
