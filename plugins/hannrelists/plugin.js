@@ -9,20 +9,23 @@
 
 (function() {
   tinymce.PluginManager.add('hannrelists', function(editor, url) {
-    function createList(list, editor, dom, domQuery, selection) {
-
+    function createList(editor, dom, selection) {
 
       editor.execCommand('InsertUnorderedList');
-      list = dom.getParent(selection.getNode(), 'ul');
-      dom.addClass(list, "download-link-list");
-      var item = dom.getParent(selection.getNode(), 'li');
+      return dom.getParent(selection.getNode(), 'ul');
+    }
 
-      while (item) {
+    function convertList(list, editor, dom, domQuery, selection) {
+
+      dom.addClass(list, "download-link-list");
+      var items = domQuery.find('li', list);
+
+      domQuery.each(items, function(index, item) {
         dom.addClass(item, "item");
         var subItem = domQuery.find("strong", item);
         dom.addClass(subItem, "link");
         item = dom.getPrev(item, 'li');
-      }
+      });
     }
 
     function findLists() {
@@ -36,11 +39,12 @@
 
         // Add ul type if needed
         if (!list) {
-          createList(list, editor, dom, domQuery, selection);
+          list = createList(editor, dom, selection);
         }
 
         if (list) {
           // if a list is already present
+          convertList(list, editor, dom, domQuery, selection);
         }
     }
 
