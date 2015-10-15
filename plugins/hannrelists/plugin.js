@@ -29,7 +29,7 @@
 
       domQuery.each(items, function(index, item) {
         dom.addClass(item, "item");
-        var subItem = domQuery.find("strong", item);
+        var subItem = domQuery.find("a", item);
         dom.addClass(subItem, linkType[linkTypeName]);
         item = dom.getPrev(item, 'li');
       });
