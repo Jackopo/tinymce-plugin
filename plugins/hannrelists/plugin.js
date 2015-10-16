@@ -16,10 +16,15 @@
     };
 
 
-    function createList(editor, dom, selection) {
-
+    function createList(editor, dom, domQuery, elem) {
+      var list;
       editor.execCommand('InsertUnorderedList');
-      return dom.getParent(selection.getNode(), 'ul');
+      if (dom.is(elem, 'body')) {
+        list = domQuery.find("ul", elem)[0];
+      } else {
+        list = dom.getParent(elem, 'ul');
+      }
+      return list;
     }
 
 
@@ -31,14 +36,14 @@
       dom.addClass(item, linkType[linkTypeName]);
     }
 
-    function convertList(list, editor, dom, domQuery, selection, linkTypeName) {
+    function convertList(list, editor, dom, domQuery, linkTypeName) {
 
       dom.addClass(list, "download-link-list");
       var items = domQuery.find('li', list);
 
       domQuery.each(items, function(index, item) {
         dom.addClass(item, "item");
-        var subItem = domQuery.find("a", item);
+        var subItem = domQuery.find("strong", item);
         adjustItem(subItem, linkTypeName, dom);
         item = dom.getPrev(item, 'li');
       });
@@ -49,18 +54,24 @@
       var dom = editor.dom;
       var selection = editor.selection;
       var domQuery = tinymce.dom.DomQuery;
+      var elem = selection.getNode();
 
       // Check for existing list element
-      list = dom.getParent(selection.getNode(), 'ul');
+      list = dom.getParent(elem, 'ul');
+
+      if (dom.is(elem, "strong")) {
+        adjustItem(elem, linkTypeName, dom);
+        return;
+      }
 
       // Add ul type if needed
       if (!list) {
-        list = createList(editor, dom, selection);
+        list = createList(editor, dom, domQuery, elem);
       }
 
       if (list) {
         // if a list is already present
-        convertList(list, editor, dom, domQuery, selection, linkTypeName);
+        convertList(list, editor, dom, domQuery, linkTypeName);
       }
     }
 
