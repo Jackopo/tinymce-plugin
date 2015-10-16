@@ -11,8 +11,8 @@
   tinymce.PluginManager.add('hannrelists', function(editor, url) {
 
     var linkType =  {
-      download: "link",
-      links: "link arrow-down"
+      download: "link arrow-down",
+      links: "link"
     };
 
 
@@ -20,6 +20,15 @@
 
       editor.execCommand('InsertUnorderedList');
       return dom.getParent(selection.getNode(), 'ul');
+    }
+
+
+    function adjustItem(item, linkTypeName, dom) {
+
+      if (linkTypeName == "links") {
+        dom.removeClass(item, 'arrow-down');
+      }
+      dom.addClass(item, linkType[linkTypeName]);
     }
 
     function convertList(list, editor, dom, domQuery, selection, linkTypeName) {
@@ -30,7 +39,7 @@
       domQuery.each(items, function(index, item) {
         dom.addClass(item, "item");
         var subItem = domQuery.find("a", item);
-        dom.addClass(subItem, linkType[linkTypeName]);
+        adjustItem(subItem, linkTypeName, dom);
         item = dom.getPrev(item, 'li');
       });
     }
@@ -60,7 +69,7 @@
       text: 'HR lists - Down',
       icon: true,
       onclick: function(event) {
-        findLists('download')
+        findLists('download');
       }
     });
 
@@ -68,7 +77,7 @@
       text: 'HR lists- Links',
       icon: true,
       onclick: function(event) {
-        findLists('links')
+        findLists('links');
       }
     });
   });
