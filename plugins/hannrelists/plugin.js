@@ -17,13 +17,11 @@
 
 
     function createList(editor, dom, domQuery, elem) {
-      var list;
+      var list, selectedNode;
       editor.execCommand('InsertUnorderedList');
-      if (dom.is(elem, 'body')) {
-        list = domQuery.find("ul", elem)[0];
-      } else {
-        list = dom.getParent(elem, 'ul');
-      }
+      selectedNode = editor.selection.getNode();
+      list = dom.getParent(selectedNode, 'ul');
+      debugger
       return list;
     }
 
@@ -42,14 +40,14 @@
       var items = domQuery.find('li', list);
 
       domQuery.each(items, function(index, item) {
-        dom.addClass(item, "item");
-        var subItem = domQuery.find("strong", item);
+        dom.addClass(item, "link");
+        var subItem = domQuery.find("a", item);
         adjustItem(subItem, linkTypeName, dom);
         item = dom.getPrev(item, 'li');
       });
     }
 
-    function findLists(linkTypeName) {
+    function findLists(linkTypeName, target) {
       var list;
       var dom = editor.dom;
       var selection = editor.selection;
@@ -80,7 +78,7 @@
       text: 'HR lists - Down',
       icon: true,
       onclick: function(event) {
-        findLists('download');
+        findLists('download', event.target);
       }
     });
 
@@ -88,7 +86,7 @@
       text: 'HR lists- Links',
       icon: true,
       onclick: function(event) {
-        findLists('links');
+        findLists('links', event.target);
       }
     });
   });
