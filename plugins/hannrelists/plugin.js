@@ -21,7 +21,6 @@
       editor.execCommand('InsertUnorderedList');
       selectedNode = editor.selection.getNode();
       list = dom.getParent(selectedNode, 'ul');
-      debugger
       return list;
     }
 
