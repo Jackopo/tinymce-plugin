@@ -38,7 +38,7 @@
       var items = domQuery.find('li', list);
 
       domQuery.each(items, function(index, item) {
-        dom.addClass(item, "link");
+        dom.addClass(item, "item");
         var subItem = domQuery.find("a", item);
         adjustItem(subItem, linkTypeName, dom);
         item = dom.getPrev(item, 'li');
