@@ -17,9 +17,9 @@
 }
 
 .download-link-list li {
-    list-style: none;
-    padding-bottom: 2px;
-    position: relative;
+  list-style: none;
+  padding-bottom: 2px;
+  position: relative;
 }
 
 .download-link-list li .title {

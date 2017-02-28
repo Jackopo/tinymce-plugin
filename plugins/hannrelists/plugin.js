@@ -3,8 +3,7 @@
 // author: 'Infopark AG',
 // authorurl: 'http://www.infopark.de',
 // infourl: 'http://www.infopark.de',
-// version: "0.2"
-
+// version: "0.3.1"
 
 
 (function() {
@@ -19,7 +18,7 @@
     function createList(editor, dom, domQuery, elem) {
       var list, selectedNode;
       editor.execCommand('InsertUnorderedList');
-      selectedNode = editor.selection.getNode();
+      selectedNode = editor.selection.getStart();
       list = dom.getParent(selectedNode, 'ul');
       return list;
     }
